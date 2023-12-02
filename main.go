@@ -10,6 +10,10 @@ import (
 func main() {
 	r := mux.NewRouter()
 
+	r.HandleFunc("/PersonDelete/git", deletePerson_git).Methods("GET")
+	r.HandleFunc("/PersonDelete/tel", deletePerson_tel).Methods("GET")
+	r.HandleFunc("/changeVar/git", changeVars_git).Methods("GET")
+	r.HandleFunc("/changeVar/tel", changeVars_tel).Methods("GET")
 	r.HandleFunc("/getPersons", getMENSCHEN).Methods("GET")
 	r.HandleFunc("/isPersonExist/git", isPersonExist_Git).Methods("GET")
 	r.HandleFunc("/isPersonExist/tel", isPersonExist_Tel).Methods("GET")
