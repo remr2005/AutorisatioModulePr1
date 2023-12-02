@@ -6,24 +6,6 @@ import (
 	"net/http"
 )
 
-/* package main
-
-import (
-"github.com/gorilla/mux"
-"log"
-"net/http"
-)
-
-func main() {
-	r := mux.NewRouter()
-
-	r.HandleFunc("/isPersonDelete/git", deletePerson_git).Methods("GET")
-	r.HandleFunc("/isPersonDelete/tel", deletePerson_tel).Methods("GET")
-
-	log.Fatal(http.ListenAndServe(":8001", r))
-}
-*/
-
 func deletePerson_git(w http.ResponseWriter, r *http.Request) {
 	// Github айди
 	git_id := r.URL.Query().Get("git_id")
