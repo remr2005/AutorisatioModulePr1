@@ -22,9 +22,6 @@ func deletePerson_git(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println(result.LastInsertId()) // id последнего удаленого объекта
-	fmt.Println(result.RowsAffected()) // количество затронутых строк
 }
 
 func deletePerson_tel(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +40,4 @@ func deletePerson_tel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println(result.LastInsertId()) // id последнего удаленого объекта
-	fmt.Println(result.RowsAffected()) // количество затронутых строк
 }
