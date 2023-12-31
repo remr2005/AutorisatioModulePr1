@@ -18,6 +18,7 @@ func main() {
 	r.HandleFunc("/changeVar/git", changeVars_git).Methods("GET")
 	r.HandleFunc("/changeVar/tel", changeVars_tel).Methods("GET")
 	r.HandleFunc("/getPersons", getMENSCHEN).Methods("GET")
+	r.HandleFunc("/getPersons/count", getMENSCHEN_count).Methods("GET")
 	r.HandleFunc("/isPersonExist/git", isPersonExist_Git).Methods("GET")
 	r.HandleFunc("/isPersonExist/tel", isPersonExist_Tel).Methods("GET")
 

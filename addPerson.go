@@ -24,11 +24,9 @@ func addPerson(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	// Выполнение SQL-запроса для добавления нового пользователя
-	result, err := db.Exec("INSERT INTO persons.MENSCHEN (GITID, TELID, SURNAME, NAMEP, FATHER_NAME, GROUPP, STUDENT, LEHRER, ADMINP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+	_, err = db.Exec("INSERT INTO persons.MENSCHEN (GITID, TELID, SURNAME, NAMEP, FATHER_NAME, GROUPP, STUDENT, LEHRER, ADMINP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		newPerson.GITID, newPerson.TELID, newPerson.SURNAME, newPerson.NAMEP, newPerson.FATHER_NAME, newPerson.GROUPP, newPerson.STUDENT, newPerson.LEHRER, newPerson.ADMINP)
 	if err != nil {
 		panic(err)
 	}
-
-	result = result
 }

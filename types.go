@@ -11,3 +11,13 @@ type person struct {
 	LEHRER      uint8  `json: "LEHRER"`
 	ADMINP      uint8  `json: "ADMINP"`
 }
+
+type bufers_struct struct {
+	Access_token string `json: "access_token"`
+	Token_type   string `json: "token_type"`
+	Scope        string `json: "scope"`
+}
+
+type git_id struct {
+	Id int `json: "id"`
+}
