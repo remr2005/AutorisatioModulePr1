@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -19,7 +20,7 @@ func addPerson(w http.ResponseWriter, r *http.Request) {
 	// Открытие БД
 	db, err := sql.Open("mysql", "root:godzila2005;@/persons")
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	defer db.Close()
 
@@ -27,6 +28,6 @@ func addPerson(w http.ResponseWriter, r *http.Request) {
 	_, err = db.Exec("INSERT INTO persons.MENSCHEN (GITID, TELID, SURNAME, NAMEP, FATHER_NAME, GROUPP, STUDENT, LEHRER, ADMINP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		newPerson.GITID, newPerson.TELID, newPerson.SURNAME, newPerson.NAMEP, newPerson.FATHER_NAME, newPerson.GROUPP, newPerson.STUDENT, newPerson.LEHRER, newPerson.ADMINP)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 }

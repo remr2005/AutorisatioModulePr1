@@ -38,7 +38,6 @@ func auth(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			fmt.Println(err, 0)
-			return
 		}
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Accept", "application/json")
@@ -47,7 +46,6 @@ func auth(w http.ResponseWriter, r *http.Request) {
 		res, err := client.Do(req)
 		if err != nil {
 			fmt.Println(err, 1)
-			return
 		}
 
 		var req_ bufers_struct
@@ -55,7 +53,6 @@ func auth(w http.ResponseWriter, r *http.Request) {
 		err = json.NewDecoder(res.Body).Decode(&req_)
 		if err != nil {
 			fmt.Println(err, 2)
-			return
 		}
 
 		url = "https://api.github.com/user"
@@ -66,7 +63,6 @@ func auth(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			fmt.Println(err)
-			return
 		}
 		req.Header.Add("Authorization", req_.Token_type+" "+req_.Access_token)
 		req.Header.Add("Cookie", "_octo=GH1.1.2027803936.1701809464; logged_in=no")
@@ -74,7 +70,6 @@ func auth(w http.ResponseWriter, r *http.Request) {
 		res, err = client.Do(req)
 		if err != nil {
 			fmt.Println(err)
-			return
 		}
 
 		var req_1 git_id
@@ -84,7 +79,7 @@ func auth(w http.ResponseWriter, r *http.Request) {
 
 		db, err := sql.Open("mysql", "root:godzila2005;@/persons")
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
 		}
 		defer db.Close()
 
@@ -92,7 +87,7 @@ func auth(w http.ResponseWriter, r *http.Request) {
 		_, err = db.Exec("INSERT INTO persons.MENSCHEN (GITID, TELID, SURNAME, NAMEP, FATHER_NAME, GROUPP, STUDENT, LEHRER, ADMINP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
 			per.GITID, per.TELID, per.SURNAME, per.NAMEP, per.FATHER_NAME, per.GROUPP, per.STUDENT, per.LEHRER, per.ADMINP)
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
 		}
 	}
 }

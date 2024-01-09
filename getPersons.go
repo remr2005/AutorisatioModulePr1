@@ -16,7 +16,7 @@ func getMENSCHEN(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "root:godzila2005;@/persons") // открытие БД
 
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	defer db.Close() // освобождение памяти
 
@@ -44,15 +44,15 @@ func getMENSCHEN_count(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "root:godzila2005;@/persons") // открытие БД
 
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	defer db.Close() // освобождение памяти
 
 	rows, err := db.Query("select * from persons.MENSCHEN") // получение всех пользователей                                // массив пользователей
 
 	for rows.Next() {
-		i+=1
+		i += 1
 	}
-	fmt.Fprint(w,i)
-// возвратить список пользователей на страницу
+	fmt.Fprint(w, i)
+	// возвратить список пользователей на страницу
 }

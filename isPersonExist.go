@@ -14,7 +14,7 @@ func isPersonExist_Git(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "root:godzila2005;@/persons") // открытие БД
 
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	defer db.Close() // освобождение памяти
 
@@ -48,7 +48,7 @@ func isPersonExist_Tel(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "root:godzila2005;@/persons") // открытие БД
 
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	defer db.Close() // освобождение памяти
 

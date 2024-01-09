@@ -21,3 +21,5 @@ type bufers_struct struct {
 type git_id struct {
 	Id int `json: "id"`
 }
+
+var SECRET = "880041"
