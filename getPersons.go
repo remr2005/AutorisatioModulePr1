@@ -56,3 +56,59 @@ func getMENSCHEN_count(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, i)
 	// возвратить список пользователей на страницу
 }
+
+func getPerson_tg(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Println("1")
+
+	id := r.URL.Query().Get("id")
+
+	db, err := sql.Open("mysql", "root:godzila2005;@/persons") // открытие БД
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer db.Close() // освобождение памяти
+
+	rows, err := db.Query("select * from persons.MENSCHEN") // получение всех товаров
+
+	for rows.Next() {
+		p := person{}
+		err := rows.Scan(&p.GITID, &p.TELID, &p.SURNAME, &p.NAMEP, &p.FATHER_NAME, &p.GROUPP, &p.STUDENT, &p.LEHRER, &p.ADMINP) // запись пользователя
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		if p.TELID == id {
+			json.NewEncoder(w).Encode(p)
+		}
+	} // возвратить список пользователей на страницу
+}
+
+func getPerson_git(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Println("1")
+
+	id := r.URL.Query().Get("id")
+
+	db, err := sql.Open("mysql", "root:godzila2005;@/persons") // открытие БД
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer db.Close() // освобождение памяти
+
+	rows, err := db.Query("select * from persons.MENSCHEN") // получение всех товаров
+
+	for rows.Next() {
+		p := person{}
+		err := rows.Scan(&p.GITID, &p.TELID, &p.SURNAME, &p.NAMEP, &p.FATHER_NAME, &p.GROUPP, &p.STUDENT, &p.LEHRER, &p.ADMINP) // запись пользователя
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		if p.GITID == id {
+			json.NewEncoder(w).Encode(p)
+		}
+	} // возвратить список пользователей на страницу
+}

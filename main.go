@@ -34,6 +34,10 @@ func main() {
 	r.HandleFunc("/isPersonExist/tel", isPersonExist_Tel).Methods("GET")
 	//
 	r.HandleFunc("/giveJWT", giveJWT).Methods("GET")
+	//
+	r.HandleFunc("/getPerson/tel", getPerson_tg).Methods("GET")
+	//
+	r.HandleFunc("/getPerson/git", getPerson_git).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8001", r))
 }

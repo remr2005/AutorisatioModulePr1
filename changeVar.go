@@ -4,6 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"time"
+
+	"github.com/golang-jwt/jwt"
 )
 
 func changeVars_git(w http.ResponseWriter, r *http.Request) {
@@ -50,5 +53,31 @@ func changeVars_tel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	http.Redirect(w, r, "http://localhost:8000/admins?token="+state, http.StatusSeeOther)
+
+	dec_token, err := jwt.Parse(state, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SECRET), nil
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+	payload, ok := dec_token.Claims.(jwt.MapClaims)
+
+	if ok && payload["admin"].(bool) && (payload["expires_at"].(float64) >= float64(time.Now().Unix())) {
+		tokeExpiresAt := time.Now().Add(time.Minute * time.Duration(15)) // время жизни токена
+		payload_second := jwt.MapClaims{
+			"id":         payload["id"].(string),
+			"admin":      true,
+			"expires_at": tokeExpiresAt.Unix(),
+		}
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload_second) // создание нового токена
+		NewTokenString, err := token.SignedString([]byte(SECRET))
+		if err != nil {
+			fmt.Println(err)
+		}
+		http.Redirect(w, r, "http://localhost:8000/delete?tokenDel="+state+"&tokenSet="+NewTokenString, http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "http://localhost:8000/admins/forbidden"+state, http.StatusSeeOther)
+	}
+
+	//http.Redirect(w, r, "http://localhost:8000/admins?token="+state, http.StatusSeeOther)
 }
